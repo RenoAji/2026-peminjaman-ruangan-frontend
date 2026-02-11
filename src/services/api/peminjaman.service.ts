@@ -8,13 +8,13 @@ import type {
 export const peminjamanService = {
   // GET /api/Peminjaman
   getAllPeminjaman: async (): Promise<Peminjaman[]> => {
-    const response = await apiClient.get<Peminjaman[]>("/api/Peminjaman");
+    const response = await apiClient.get<Peminjaman[]>("/Peminjaman");
     return response.data;
   },
 
   // GET /api/Peminjaman/{id}
   getPeminjamanById: async (id: number): Promise<Peminjaman> => {
-    const response = await apiClient.get<Peminjaman>(`/api/Peminjaman/${id}`);
+    const response = await apiClient.get<Peminjaman>(`/Peminjaman/${id}`);
     return response.data;
   },
 
@@ -22,7 +22,7 @@ export const peminjamanService = {
   createPeminjaman: async (
     data: CreatePeminjamanRequest,
   ): Promise<Peminjaman> => {
-    const response = await apiClient.post<Peminjaman>("/api/Peminjaman", data);
+    const response = await apiClient.post<Peminjaman>("/Peminjaman", data);
     return response.data;
   },
 
@@ -31,11 +31,11 @@ export const peminjamanService = {
     id: number,
     data: UpdatePeminjamanRequest,
   ): Promise<void> => {
-    await apiClient.put(`/api/Peminjaman/${id}`, data);
+    await apiClient.put(`/Peminjaman/${id}`, data);
   },
 
   // DELETE /api/Peminjaman/{id}
   deletePeminjaman: async (id: number): Promise<void> => {
-    await apiClient.delete(`/api/Peminjaman/${id}`);
+    await apiClient.delete(`/Peminjaman/${id}`);
   },
 };
