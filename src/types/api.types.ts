@@ -49,3 +49,26 @@ export interface UpdatePeminjamanRequest {
   keperluan?: string;
   status?: StatusPeminjaman;
 }
+
+// Room Availability Detail (GET /api/Ruangan/{id}/availability)
+export interface BookedPeriod {
+  id: number;
+  namaPeminjam: string;
+  tanggalPinjam: string;
+  tanggalSelesai: string;
+  status: StatusPeminjaman;
+}
+
+export interface AvailablePeriod {
+  start: string;
+  end: string;
+}
+
+export interface RoomAvailabilityDetail {
+  ruanganId: number;
+  namaRuangan: string;
+  startDate: string;
+  endDate: string;
+  bookedPeriods: BookedPeriod[];
+  availablePeriods: AvailablePeriod[];
+}
