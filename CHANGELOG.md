@@ -2,6 +2,33 @@
 
 Semua perubahan pada proyek ini akan didokumentasikan di file ini sesuai dengan prinsip Semantic Versioning.
 
+## [0.4.0] - 2026-02-12
+
+### Added
+
+- Halaman Manajemen Peminjaman (Booking Management UI) lengkap: daftar, filter, detail, form tambah/edit, dan status update.
+- Komponen tabel responsif dan kartu mobile untuk peminjaman.
+- Modal detail peminjaman dan modal update status (admin).
+- Filter status (All, Pending, Approved, Rejected, Completed) dengan badge dan counter.
+- Navigasi antara halaman ruangan dan peminjaman.
+
+### Fixed
+
+- Perbaikan bug konversi waktu pada form booking: waktu yang diinput user sekarang tidak bergeser 7 jam (waktu lokal dikirim ke backend tanpa konversi UTC).
+
+## [0.3.0] - 2026-02-12
+
+### Added
+
+- Implementasi halaman Manajemen Ruangan (CRUD) lengkap dengan tabel desktop dan kartu mobile responsif.
+- Modal form untuk tambah/edit ruangan dengan validasi input dan state loading.
+- Desain UI profesional: header, empty state, badge kapasitas, serta aksi edit/hapus.
+- Konfigurasi proxy Vite untuk rute `/api` agar terhubung ke backend lokal.
+
+### Fixed
+
+- Normalisasi ID ruangan dari respons API agar operasi update/delete tidak mengarah ke URL `undefined`.
+
 ## [0.2.0] - 2026-02-11
 
 ### Added
