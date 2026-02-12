@@ -2,6 +2,33 @@
 
 Semua perubahan pada proyek ini akan didokumentasikan di file ini sesuai dengan prinsip Semantic Versioning.
 
+## [0.5.1] - 2026-02-12
+
+### Added
+
+- Halaman detail ketersediaan per ruangan (`/rooms/:id/availability`) dengan timeline visual.
+- Komponen `AvailabilityTimeline` menampilkan slot tersedia (hijau) dan terpakai (merah) dengan detail peminjam dan status.
+- Kartu ringkasan jumlah peminjaman terjadwal dan slot tersedia.
+- Tombol "Cek" pada tabel ruangan untuk langsung membuka halaman ketersediaan ruangan tersebut.
+- Pilihan cepat rentang waktu: Bulan Ini, Bulan Depan, 7 Hari, 30 Hari.
+- Integrasi dengan endpoint `GET /api/Ruangan/{id}/availability` yang mengembalikan `bookedPeriods` dan `availablePeriods`.
+
+### Changed
+
+- Tipe response `checkRuanganAvailability` diperbarui dari `boolean` ke `RoomAvailabilityDetail` sesuai respons API.
+- Custom hook `useRoomAvailability` diperbarui untuk mendukung response detail.
+
+## [0.5.0] - 2026-02-12
+
+### Added
+
+- Halaman Cek Ketersediaan Ruangan (Availability Checker) dengan pencarian berdasarkan rentang waktu.
+- Komponen form pencarian ketersediaan dengan validasi tanggal dan pilihan cepat (2 jam, 4 jam, 1 hari, 2 hari).
+- Daftar ruangan tersedia dengan kartu responsif dan indikator status ketersediaan.
+- Integrasi langsung dari hasil pencarian ke form peminjaman (pre-fill ruangan & tanggal).
+- Custom hook `useRoomAvailability` untuk pengecekan ketersediaan ruangan individual.
+- Navigasi "Cek Ketersediaan" di halaman Ruangan dan Peminjaman.
+
 ## [0.4.0] - 2026-02-12
 
 ### Added

@@ -1,20 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { peminjamanService, ruanganService } from "../../services/api";
 import type { Ruangan, CreatePeminjamanRequest } from "../../types/api.types";
+
+// Helper to convert datetime string (e.g. "2026-02-15T09:00:00") to datetime-local input format
+const formatDateTimeLocalStatic = (dateStr: string): string => {
+  // Already in datetime-local format
+  if (dateStr.length === 16) return dateStr;
+  // Trim seconds/timezone to get "YYYY-MM-DDTHH:mm"
+  if (dateStr.length >= 16) return dateStr.slice(0, 16);
+  return dateStr;
+};
 
 const BookingFormPage: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
   const isEditMode = !!id;
+
+  // Pre-selected room & dates from availability checker
+  const preSelectedRoom = (location.state as { selectedRoom?: Ruangan })
+    ?.selectedRoom;
+  const preSelectedStart = (location.state as { tanggalPinjam?: string })
+    ?.tanggalPinjam;
+  const preSelectedEnd = (location.state as { tanggalSelesai?: string })
+    ?.tanggalSelesai;
 
   const [rooms, setRooms] = useState<Ruangan[]>([]);
   const [loadingRooms, setLoadingRooms] = useState(true);
   const [formData, setFormData] = useState({
     namaPeminjam: "",
-    ruanganId: 0,
-    tanggalPinjam: "",
-    tanggalSelesai: "",
+    ruanganId: preSelectedRoom?.ruanganId ?? 0,
+    tanggalPinjam: preSelectedStart
+      ? formatDateTimeLocalStatic(preSelectedStart)
+      : "",
+    tanggalSelesai: preSelectedEnd
+      ? formatDateTimeLocalStatic(preSelectedEnd)
+      : "",
     keperluan: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});

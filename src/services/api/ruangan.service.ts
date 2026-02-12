@@ -3,6 +3,7 @@ import type {
   Ruangan,
   CreateRuanganRequest,
   UpdateRuanganRequest,
+  RoomAvailabilityDetail,
 } from "../../types/api.types";
 
 const normalizeRuangan = (data: Ruangan & Record<string, unknown>): Ruangan => {
@@ -68,8 +69,8 @@ export const ruanganService = {
     id: number,
     startDate: string,
     endDate: string,
-  ): Promise<boolean> => {
-    const response = await apiClient.get<boolean>(
+  ): Promise<RoomAvailabilityDetail> => {
+    const response = await apiClient.get<RoomAvailabilityDetail>(
       `/Ruangan/${id}/availability`,
       {
         params: { startDate, endDate },

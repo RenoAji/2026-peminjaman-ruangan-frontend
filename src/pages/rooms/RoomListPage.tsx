@@ -53,6 +53,10 @@ const RoomListPage: React.FC = () => {
     }
   };
 
+  const handleCheckAvailability = (room: Ruangan) => {
+    navigate(`/rooms/${room.ruanganId}/availability`);
+  };
+
   const handleModalClose = (shouldRefresh: boolean) => {
     setIsModalOpen(false);
     setSelectedRoom(null);
@@ -75,7 +79,25 @@ const RoomListPage: React.FC = () => {
                 Kelola data ruangan yang tersedia di sistem
               </p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
+              <button
+                onClick={() => navigate("/availability")}
+                className="inline-flex items-center justify-center gap-2 bg-white text-slate-700 px-4 py-2.5 rounded-lg font-medium text-sm border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                Cek Ketersediaan
+              </button>
               <button
                 onClick={() => navigate("/bookings")}
                 className="inline-flex items-center justify-center gap-2 bg-white text-slate-700 px-4 py-2.5 rounded-lg font-medium text-sm border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer"
@@ -159,6 +181,7 @@ const RoomListPage: React.FC = () => {
               rooms={rooms}
               onEdit={handleEdit}
               onDelete={handleDelete}
+              onCheckAvailability={handleCheckAvailability}
             />
           </>
         )}

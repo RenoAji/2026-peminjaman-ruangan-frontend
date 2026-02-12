@@ -5,9 +5,15 @@ interface RoomTableProps {
   rooms: Ruangan[];
   onEdit: (room: Ruangan) => void;
   onDelete: (id: number) => void;
+  onCheckAvailability: (room: Ruangan) => void;
 }
 
-const RoomTable: React.FC<RoomTableProps> = ({ rooms, onEdit, onDelete }) => {
+const RoomTable: React.FC<RoomTableProps> = ({
+  rooms,
+  onEdit,
+  onDelete,
+  onCheckAvailability,
+}) => {
   if (rooms.length === 0) {
     return (
       <div className="bg-white rounded-xl border border-slate-200 shadow-sm">
@@ -106,6 +112,24 @@ const RoomTable: React.FC<RoomTableProps> = ({ rooms, onEdit, onDelete }) => {
                 <td className="px-6 py-4 whitespace-nowrap text-right">
                   <div className="flex items-center justify-end gap-2">
                     <button
+                      onClick={() => onCheckAvailability(room)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg hover:bg-emerald-100 transition-colors cursor-pointer"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-3.5 w-3.5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      Cek
+                    </button>
+                    <button
                       onClick={() => onEdit(room)}
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors cursor-pointer"
                     >
@@ -181,6 +205,12 @@ const RoomTable: React.FC<RoomTableProps> = ({ rooms, onEdit, onDelete }) => {
               {room.lokasi}
             </div>
             <div className="flex items-center gap-2 border-t border-slate-100 pt-3">
+              <button
+                onClick={() => onCheckAvailability(room)}
+                className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-sm font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg hover:bg-emerald-100 transition-colors cursor-pointer"
+              >
+                Cek
+              </button>
               <button
                 onClick={() => onEdit(room)}
                 className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-sm font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors cursor-pointer"
