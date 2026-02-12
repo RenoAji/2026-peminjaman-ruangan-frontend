@@ -2,6 +2,29 @@
 
 Semua perubahan pada proyek ini akan didokumentasikan di file ini sesuai dengan prinsip Semantic Versioning.
 
+## [0.6.0] - 2026-02-12
+
+### Added
+
+- Docker support untuk deployment dengan multi-stage build.
+- Dockerfile untuk frontend menggunakan Node.js Alpine (build) dan Nginx Alpine (production).
+- Konfigurasi Nginx dengan API proxy ke backend service melalui Docker internal network.
+- Docker Compose service untuk frontend dengan integrasi ke backend dan database.
+- File `.dockerignore` untuk optimasi Docker build size.
+- Security headers dan gzip compression di Nginx.
+- Static asset caching dan SPA routing support.
+
+### Changed
+
+- Base URL API diubah dari `http://localhost:5000` ke `/api` untuk mendukung Nginx proxy.
+- Vite proxy configuration sekarang membaca dari environment variable `VITE_PROXY_TARGET`.
+- API communication menggunakan Docker internal network (container-to-container) di production.
+
+### Fixed
+
+- CORS issue dengan menggunakan Nginx proxy sebagai bridge antara browser dan backend.
+- Konfigurasi Nginx proxy untuk forward `/api` ke backend service dengan path yang benar.
+
 ## [0.5.1] - 2026-02-12
 
 ### Added
