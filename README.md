@@ -1,73 +1,115 @@
-# React + TypeScript + Vite
+# Frontend - Sistem Peminjaman Ruangan
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplikasi frontend untuk Sistem Peminjaman Ruangan menggunakan React, TypeScript, dan Vite.
 
-Currently, two official plugins are available:
+## Docker
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Untuk menjalankan dengan Docker Compose (backend + frontend + database), lihat [repository infrastructure](https://github.com/RenoAji/2026-peminjaman-ruangan-infrastructure).
 
-## React Compiler
+## Prerequisites
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Node.js** v20+ ([Download](https://nodejs.org/))
+- **npm** v9+
 
-## Expanding the ESLint configuration
+Verifikasi instalasi:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+node --version
+npm --version
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Instalasi
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. Clone repository dan masuk ke folder frontend:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+   ```bash
+   git clone <repository-url>
+   cd frontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+## Konfigurasi
+
+1. Buat file `.env` dari template:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Edit `.env` sesuai kebutuhan:
+   ```env
+   VITE_PROXY_TARGET=http://localhost:5000/api # URL backend API
+   ```
+
+## Menjalankan Aplikasi
+
+### Development Mode
+
+```bash
+npm run dev
+```
+
+Akses aplikasi di: `http://localhost:5173`
+
+### Build Production
+
+```bash
+npm run build
+npm run preview
+```
+
+## Commands
+
+| Command           | Deskripsi                |
+| ----------------- | ------------------------ |
+| `npm install`     | Install dependencies     |
+| `npm run dev`     | Start development server |
+| `npm run build`   | Build production         |
+| `npm run preview` | Preview production build |
+| `npm run lint`    | Check code quality       |
+
+## Integrasi Backend
+
+Frontend berkomunikasi dengan backend melalui Vite proxy:
+
+```
+Browser → Vite (5173) → Backend (5000)
+```
+
+Pastikan backend berjalan di `http://localhost:5000` sebelum start frontend.
+
+## Troubleshooting
+
+### Port sudah digunakan
+
+```bash
+# Gunakan port lain
+npm run dev -- --port 3000
+```
+
+### Module not found
+
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+### CORS errors
+
+- Check backend sudah running
+- Verify file `.env`
+- Restart dev server
+
+## Struktur Folder
+
+```
+src/
+├── pages/          # Halaman aplikasi
+├── services/       # API service layer
+├── types/          # TypeScript types
+└── App.tsx         # Main app & routing
 ```
